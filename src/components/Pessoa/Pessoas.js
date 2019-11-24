@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
-import { getBairro, deleteBairro } from '../../services/bairroService';
+import { getPessoa, deletePessoa } from '../../services/pessoaService';
 import Button from 'react-bootstrap/Button';
 
-function Bairros({match}) {
-  const [bairros, setBairros] = useState([]);
+function Pessoas({match}) {
+  const [pessoas, setPessoas] = useState([]);
 
   useEffect(async () => {
-    setBairros((await getBairro()).data);
-  }, [setBairros]);
+    setPessoas((await getPessoa()).data);
+  }, [setPessoas]);
 
   const deletar = async (id) => {    
-    await deleteBairro(id);
-    setBairros((await getBairro()).data);
+    await deletePessoa(id);
+    setPessoas((await getPessoa()).data);
   }
 
   return (
     <React.Fragment>
-      <h1>Bairros</h1>
+      <h1>Pessoas</h1>
       
       <Button variant="primary" type="button" href={`${match.path}/novo`}>
         Novo
@@ -28,15 +28,21 @@ function Bairros({match}) {
           <tr>
             <th>#</th>
             <th>Nome</th>
+            <th>Pessoa</th>
+            <th>CNPJ/CPF</th>
+            <th>Cidade</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           {
-            bairros.map(item => (
+            pessoas.map(item => (
               <tr>
                 <td>{item.id}</td>
-                <td>{item.nome}</td>
+                <td>{item.nomeRazao}</td>
+                <td>{item.tipoPessoa == 'FISICA' ? 'Fisica' : 'Juridica'}</td>
+                <td>{item.cpfCnpj}</td>
+                <td>{item.cidade.nome}</td>
                 <td>
                   <Button variant="warning" size="sm" type="button" href={`${match.path}/${item.id}`}>
                     Editar
@@ -54,4 +60,4 @@ function Bairros({match}) {
   )
 }
 
-export default Bairros;
+export default Pessoas;

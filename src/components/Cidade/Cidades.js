@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
-import { getBairro, deleteBairro } from '../../services/bairroService';
+import { getCidade, deleteCidade } from '../../services/cidadeService';
 import Button from 'react-bootstrap/Button';
 
-function Bairros({match}) {
-  const [bairros, setBairros] = useState([]);
+function Cidades({match}) {
+  const [cidades, setCidades] = useState([]);
 
   useEffect(async () => {
-    setBairros((await getBairro()).data);
-  }, [setBairros]);
+    setCidades((await getCidade()).data);
+  }, [setCidades]);
 
   const deletar = async (id) => {    
-    await deleteBairro(id);
-    setBairros((await getBairro()).data);
+    await deleteCidade(id);
+    setCidades((await getCidade()).data);
   }
 
   return (
     <React.Fragment>
-      <h1>Bairros</h1>
+      <h1>Cidades</h1>
       
       <Button variant="primary" type="button" href={`${match.path}/novo`}>
         Novo
@@ -27,15 +27,17 @@ function Bairros({match}) {
         <thead>
           <tr>
             <th>#</th>
-            <th>Nome</th>
+            <th>UF</th>
+            <th>Nome</th>            
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           {
-            bairros.map(item => (
+            cidades.map(item => (
               <tr>
                 <td>{item.id}</td>
+                <td>{item.uf.sigla}</td>
                 <td>{item.nome}</td>
                 <td>
                   <Button variant="warning" size="sm" type="button" href={`${match.path}/${item.id}`}>
@@ -54,4 +56,4 @@ function Bairros({match}) {
   )
 }
 
-export default Bairros;
+export default Cidades;

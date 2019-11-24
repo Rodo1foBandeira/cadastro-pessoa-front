@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
-import { getBairro, deleteBairro } from '../../services/bairroService';
+import { getUf, deleteUf } from '../../services/ufService';
 import Button from 'react-bootstrap/Button';
 
-function Bairros({match}) {
-  const [bairros, setBairros] = useState([]);
+function UFs({match}) {
+  const [ufs, setUFs] = useState([]);
 
   useEffect(async () => {
-    setBairros((await getBairro()).data);
-  }, [setBairros]);
+    setUFs((await getUf()).data);
+  }, [setUFs]);
 
   const deletar = async (id) => {    
-    await deleteBairro(id);
-    setBairros((await getBairro()).data);
+    await deleteUf(id);
+    setUFs((await getUf()).data);
   }
 
   return (
     <React.Fragment>
-      <h1>Bairros</h1>
+      <h1>UFs</h1>
       
       <Button variant="primary" type="button" href={`${match.path}/novo`}>
         Novo
@@ -33,7 +33,7 @@ function Bairros({match}) {
         </thead>
         <tbody>
           {
-            bairros.map(item => (
+            ufs.map(item => (
               <tr>
                 <td>{item.id}</td>
                 <td>{item.nome}</td>
@@ -54,4 +54,4 @@ function Bairros({match}) {
   )
 }
 
-export default Bairros;
+export default UFs;
