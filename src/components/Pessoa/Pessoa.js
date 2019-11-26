@@ -50,7 +50,7 @@ function Pessoa({ match, history }) {
     }
 
     const removeFone = i => {
-        values.fones.pop(i);
+        values.fones.splice(i, 1);
         setValues({...values})
     }
 
@@ -60,7 +60,7 @@ function Pessoa({ match, history }) {
     }
 
     const removeEmail = i => {
-        values.emails.pop(i);
+        values.emails.splice(i, 1);
         setValues({...values})
     }
 
@@ -75,9 +75,12 @@ function Pessoa({ match, history }) {
         <React.Fragment>
             <h1>{isNumber(match.params.id) ? 'Editar' : 'Cadastrar'} pessoa</h1>
             <Form onSubmit={submit}>
-                <Form.Row>
-                    <Button variant="primary" type="submit" className="ml-auto">
+                <Form.Row className="d-flex flex-row-reverse">
+                    <Button variant="primary" type="submit">
                         Salvar
+                    </Button>
+                    <Button variant="secondary" style={{marginRight: 10}} type="button" onClick={e => history.goBack()}>
+                        Voltar
                     </Button>
                 </Form.Row>                
                 <Form.Group controlId="nome">
@@ -102,6 +105,10 @@ function Pessoa({ match, history }) {
                 <Form.Group controlId="endereco">
                     <Form.Label>Endereço</Form.Label>
                     <Form.Control type="text" name="endereco" placeholder="Endereço" value={values.endereco} onChange={handleChange} />
+                </Form.Group>
+                <Form.Group controlId="numero">
+                    <Form.Label>Numero</Form.Label>
+                    <Form.Control type="text" name="numero" placeholder="Numero" value={values.numero} onChange={handleChange} />
                 </Form.Group>
                 <Form.Group controlId="bairro">
                     <Form.Label>UF</Form.Label>
@@ -151,7 +158,7 @@ function Pessoa({ match, history }) {
                     }
                     <hr />
                 </Form.Group> 
-                <Form.Group controlId="emaails">
+                <Form.Group controlId="emails">
                     <Form.Label>Emails</Form.Label>
                     <Form.Row>
                         <Button size="sm" variant="warning" onClick={addEmail} type="button">

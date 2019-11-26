@@ -33,9 +33,12 @@ function Cidade({ match, history }) {
         <React.Fragment>
             <h1>{isNumber(match.params.id) ? 'Editar' : 'Cadastrar'} cidade</h1>
             <Form onSubmit={submit}>
-                <Form.Row>
-                    <Button variant="primary" type="submit" className="ml-auto">
+                <Form.Row className="d-flex flex-row-reverse">
+                    <Button variant="primary" type="submit">
                         Salvar
+                    </Button>
+                    <Button variant="secondary" style={{marginRight: 10}} type="button" onClick={e => history.goBack()}>
+                        Voltar
                     </Button>
                 </Form.Row> 
                 <Form.Group controlId="uf">
