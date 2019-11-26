@@ -54,6 +54,16 @@ function Pessoa({ match, history }) {
         setValues({...values})
     }
 
+    const addEmail = () => {
+        values.emails.push({tipo: null, email1: null});
+        setValues({...values})
+    }
+
+    const removeEmail = i => {
+        values.emails.pop(i);
+        setValues({...values})
+    }
+
     useEffect(async () => {
         setCidades((await getCidade()).data);
         setBairros((await getBairro()).data);
@@ -127,13 +137,37 @@ function Pessoa({ match, history }) {
                     {                        
                         values.fones.map((v, i) => (
                             <Form.Row style={{ marginTop: 10 }}>
-                                <Col>
+                                <Col xs={2} sm={1}>
                                     <Form.Control type="text" name={`fones[${i}].ddd`} placeholder="DDD" value={values.fones[i].ddd} onChange={handleChange} />
                                 </Col>
-                                <Col>
+                                <Col xs={4} sm={2}>
                                     <Form.Control type="text" name={`fones[${i}].numero`} placeholder="Numero" value={values.fones[i].numero} onChange={handleChange} />
                                 </Col>
                                 <Button size="sm" variant="danger" onClick={e => {removeFone(i)}} type="button">
+                                    Remover
+                                </Button>
+                            </Form.Row>                            
+                        ))
+                    }
+                    <hr />
+                </Form.Group> 
+                <Form.Group controlId="emaails">
+                    <Form.Label>Emails</Form.Label>
+                    <Form.Row>
+                        <Button size="sm" variant="warning" onClick={addEmail} type="button">
+                            Adicionar
+                        </Button>
+                    </Form.Row>
+                    {                        
+                        values.emails.map((v, i) => (
+                            <Form.Row style={{ marginTop: 10 }}>
+                                <Col>
+                                    <Form.Control type="text" name={`emails[${i}].tipo`} placeholder="Tipo" value={values.emails[i].tipo} onChange={handleChange} />
+                                </Col>
+                                <Col>
+                                    <Form.Control type="text" name={`emails[${i}].email1`} placeholder="Email" value={values.emails[i].email1} onChange={handleChange} />
+                                </Col>
+                                <Button size="sm" variant="danger" onClick={e => {removeEmail(i)}} type="button">
                                     Remover
                                 </Button>
                             </Form.Row>                            
