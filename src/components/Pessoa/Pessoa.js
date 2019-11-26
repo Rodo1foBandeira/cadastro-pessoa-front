@@ -5,6 +5,7 @@ import { getBairro } from '../../services/bairroService';
 import Button from 'react-bootstrap/Button';
 import isNumber from '../utils/parses';
 import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 
 function Pessoa({ match, history }) {
     const [values, setValues] = useState(
@@ -17,15 +18,20 @@ function Pessoa({ match, history }) {
             cep: null,
             bairroId: 1,
             cidadeId: 1,            
-            email: [],
-            fone: []
+            emails: [],
+            fones: []
         }
     );
     const [cidades, setCidades] = useState([]);
     const [bairros, setBairros] = useState([]);
 
     const handleChange = e => {
-        values[e.target.name] = e.target.value;
+        if (isNumber(e.target.value)){
+            eval('values.'+[e.target.name]+ '=' + isNumber(e.target.value));
+        } else {
+            eval('values.'+[e.target.name]+ '="' + e.target.value + '"');
+        }
+        
         setValues({...values});
     }
 
@@ -38,6 +44,16 @@ function Pessoa({ match, history }) {
         history.goBack();
     }
 
+    const addFone = () => {
+        values.fones.push({ddd: null, numero: null});
+        setValues({...values})
+    }
+
+    const removeFone = i => {
+        values.fones.pop(i);
+        setValues({...values})
+    }
+
     useEffect(async () => {
         setCidades((await getCidade()).data);
         setBairros((await getBairro()).data);
@@ -48,7 +64,12 @@ function Pessoa({ match, history }) {
     return (
         <React.Fragment>
             <h1>{isNumber(match.params.id) ? 'Editar' : 'Cadastrar'} pessoa</h1>
-            <Form onSubmit={submit}>                
+            <Form onSubmit={submit}>
+                <Form.Row>
+                    <Button variant="primary" type="submit" className="ml-auto">
+                        Salvar
+                    </Button>
+                </Form.Row>                
                 <Form.Group controlId="nome">
                     <Form.Label>Nome/Razão</Form.Label>
                     <Form.Control type="text" name="nomeRazao" placeholder="Nome" value={values.nomeRazao} onChange={handleChange} />
@@ -96,9 +117,30 @@ function Pessoa({ match, history }) {
                     }                    
                     </Form.Control>
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Salvar
-                </Button>     
+                <Form.Group controlId="fones">
+                    <Form.Label>Fones</Form.Label>
+                    <Form.Row>
+                        <Button size="sm" variant="warning" onClick={addFone} type="button">
+                            Adicionar
+                        </Button>
+                    </Form.Row>
+                    {                        
+                        values.fones.map((v, i) => (
+                            <Form.Row style={{ marginTop: 10 }}>
+                                <Col>
+                                    <Form.Control type="text" name={`fones[${i}].ddd`} placeholder="DDD" value={values.fones[i].ddd} onChange={handleChange} />
+                                </Col>
+                                <Col>
+                                    <Form.Control type="text" name={`fones[${i}].numero`} placeholder="Numero" value={values.fones[i].numero} onChange={handleChange} />
+                                </Col>
+                                <Button size="sm" variant="danger" onClick={e => {removeFone(i)}} type="button">
+                                    Remover
+                                </Button>
+                            </Form.Row>                            
+                        ))
+                    }
+                    <hr />
+                </Form.Group>                
             </Form>
         </React.Fragment>
     )

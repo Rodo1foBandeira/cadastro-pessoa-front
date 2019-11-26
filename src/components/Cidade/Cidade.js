@@ -33,6 +33,11 @@ function Cidade({ match, history }) {
         <React.Fragment>
             <h1>{isNumber(match.params.id) ? 'Editar' : 'Cadastrar'} cidade</h1>
             <Form onSubmit={submit}>
+                <Form.Row>
+                    <Button variant="primary" type="submit" className="ml-auto">
+                        Salvar
+                    </Button>
+                </Form.Row> 
                 <Form.Group controlId="uf">
                     <Form.Label>UF</Form.Label>
                     <Form.Control as="select" name='ufId' onChange={handleChange}>
@@ -49,9 +54,6 @@ function Cidade({ match, history }) {
                     <Form.Label>Nome</Form.Label>
                     <Form.Control type="text" name="nome" placeholder="Nome" value={values.nome} onChange={handleChange} />
                 </Form.Group>
-                <Button variant="primary" type="submit">
-                    Salvar
-                </Button>     
             </Form>
         </React.Fragment>
     )

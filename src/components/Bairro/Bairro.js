@@ -30,13 +30,15 @@ function Bairro({ match, history }) {
         <React.Fragment>
             <h1>{isNumber(match.params.id) ? 'Editar' : 'Cadastrar'} bairro</h1>
             <Form onSubmit={submit}>
+                <Form.Row>
+                    <Button variant="primary" type="submit" className="ml-auto">
+                        Salvar
+                    </Button>
+                </Form.Row>  
                 <Form.Group controlId="nome">
                     <Form.Label>Nome</Form.Label>
                     <Form.Control type="text" name="nome" placeholder="Nome" value={values.nome} onChange={handleChange} />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    Salvar
-                </Button>     
+                </Form.Group>                  
             </Form>
         </React.Fragment>
     )
