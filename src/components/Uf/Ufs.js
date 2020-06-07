@@ -8,7 +8,7 @@ function UFs({match}) {
 
   useEffect(async () => {
     setUFs((await getUf()).data);
-  }, [setUFs]);
+  }, []);
 
   const deletar = async (id) => {    
     await deleteUf(id);

@@ -27,7 +27,7 @@ function Cidade({ match, history }) {
         setUFs((await getUf()).data);
         if (isNumber(match.params.id))
             setValues((await getCidade(match.params.id)).data);
-    }, [setValues]);
+    }, []);
     
     return (
         <React.Fragment>

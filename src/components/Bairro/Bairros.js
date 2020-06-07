@@ -8,7 +8,7 @@ function Bairros({match}) {
 
   useEffect(async () => {
     setBairros((await getBairro()).data);
-  }, [setBairros]);
+  }, []);
 
   const deletar = async (id) => {    
     await deleteBairro(id);

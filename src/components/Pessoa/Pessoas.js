@@ -8,7 +8,7 @@ function Pessoas({match}) {
 
   useEffect(async () => {
     setPessoas((await getPessoa()).data);
-  }, [setPessoas]);
+  }, []);
 
   const deletar = async (id) => {    
     await deletePessoa(id);

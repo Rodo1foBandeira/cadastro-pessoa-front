@@ -24,7 +24,7 @@ function Bairro({ match, history }) {
     useEffect(async () => {
         if (isNumber(match.params.id))
             setValues((await getBairro(match.params.id)).data);
-    }, [setValues]);
+    }, []);
     
     return (
         <React.Fragment>

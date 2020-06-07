@@ -24,7 +24,7 @@ function UF({ match, history }) {
     useEffect(async () => {
         if (isNumber(match.params.id))
             setValues((await getUf(match.params.id)).data);
-    }, [setValues]);
+    }, []);
     
     return (
         <React.Fragment>

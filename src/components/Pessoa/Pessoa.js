@@ -69,7 +69,7 @@ function Pessoa({ match, history }) {
         setBairros((await getBairro()).data);
         if (isNumber(match.params.id))
             setValues((await getPessoa(match.params.id)).data);
-    }, [setValues]);
+    }, []);
     
     return (
         <React.Fragment>
@@ -111,7 +111,7 @@ function Pessoa({ match, history }) {
                     <Form.Control type="text" name="numero" placeholder="Numero" value={values.numero} onChange={handleChange} />
                 </Form.Group>
                 <Form.Group controlId="bairro">
-                    <Form.Label>UF</Form.Label>
+                    <Form.Label>Bairro</Form.Label>
                     <Form.Control as="select" name='bairroId' onChange={handleChange}>
                     {
                         bairros.map(item => (
@@ -123,7 +123,7 @@ function Pessoa({ match, history }) {
                     </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="cidade">
-                    <Form.Label>UF</Form.Label>
+                    <Form.Label>Cidade</Form.Label>
                     <Form.Control as="select" name='cidadeId' onChange={handleChange}>
                     {
                         cidades.map(item => (
