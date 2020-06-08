@@ -1,6 +1,15 @@
 {
-    "bairro": [ {"id": 1, "nome": "Centro"} ],
-    "cidade": [],
-    "pessoa": [],
-    "uf":[]
-  }
+  "bairro": [
+    {
+      "id": 1,
+      "nome": "Centro"
+    },
+    {
+      "nome": "TEste pwa",
+      "id": 2
+    }
+  ],
+  "cidade": [],
+  "pessoa": [],
+  "uf": []
+}
